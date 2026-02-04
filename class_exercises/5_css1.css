@@ -1,48 +1,57 @@
-/* CSS Examples - Assignment styling (match reference image) */
+/* CSS Examples - Match reference images (all requirements) */
 
-/* Light blue background */
+/* 1. Background color closely matches - light blue #C1DDEC */
 body {
-	background-color: #b8d4e8;
+	background-color: #C1DDEC;
 	font-family: Georgia, "Times New Roman", serif;
 }
 
-/* Header sizes - top header left-aligned */
+/* 2. Header sizes closely match | 3. Top header aligned correctly (centered) */
 h1 {
 	font-size: 2em;
-	text-align: left;
+	text-align: center;
 	font-weight: bold;
 	color: #000;
+	font-family: Arial, Helvetica, sans-serif;
 }
 
 h2 {
 	font-size: 1.5em;
 	font-weight: bold;
 	color: #000;
+	font-family: Arial, Helvetica, sans-serif;
+	text-align: left;
 }
 
 h3 {
 	font-size: 1.17em;
 	font-weight: bold;
 	color: #000;
+	font-family: Arial, Helvetica, sans-serif;
+	text-align: left;
 }
 
-/* 2nd paragraph: width, margin, padding, border, line-height */
+/* 4. 2nd paragraph: light green box, width, margin, padding, black border, line-height */
 #paragraph2 {
-	width: 28em;
-	margin: 1em 0;
-	padding: 1em;
-	border: 1px solid #666;
-	line-height: 1.6;
+	background-color: #fff;
+	width: 65%;
+	margin: 1.5em 0;
+	padding: 1.25em;
+	border: 1px solid #90EE90;
+	line-height: 1.5;
+	color: #000;
 }
 
-/* 4th and 5th paragraphs - blue text */
+/* 5. 4th and 5th paragraphs: dark blue background, white text */
 .blue {
-	color: #00008b;
+	background-color: #000080;
+	color: #fff;
+	padding: 0.5em 0;
 }
 
-/* List item links - medium blue, underlined */
+/* 6. Link colors - list item links: standard blue #0000FF, underlined */
 ol a:link {
-	color: #0066cc;
+	color: #0000FF;
 	text-decoration: underline;
 }
 
@@ -51,48 +60,45 @@ ol a:visited {
 	text-decoration: underline;
 }
 
-/* W3schools link - reddish-brown, different from list links */
+/* 7. W3schools link: different color than list links - reddish-brown #960E0E */
 a[href*="w3schools.com"]:link {
-	color: #a52a2a;
+	color: #960E0E;
 	text-decoration: underline;
 }
 
 a[href*="w3schools.com"]:visited {
-	color: #8b4513;
+	color: #960E0E;
 	text-decoration: underline;
 }
 
-/* Paragraph containing W3schools link - constrained width, margin, padding, border */
+/* Paragraph containing W3schools link */
 .w3s-paragraph {
-	width: 28em;
 	margin: 1em 0;
-	padding: 1em;
-	border: 1px solid #999;
 	line-height: 1.5;
 }
 
-/* List items use two digits (01, 02, 03...) */
+/* 8. List items use two digits (01, 02, 03...) */
 ol {
 	list-style-type: decimal-leading-zero;
 }
 
-/* Table: header light grey, cells white, border on all cells, overlapping */
+/* 9. Table header and cells different backgrounds | 10. Border on all cells, overlapping */
 table {
 	border-collapse: collapse;
 }
 
 th, td {
-	border: 1px solid #333;
+	border: 1px solid #000;
 	padding: 0.4em 0.6em;
 }
 
 th {
-	background-color: #d3d3d3;
+	background-color: #D3D3D3;
 	color: #000;
 	font-weight: bold;
 }
 
 td {
-	background-color: #fff;
+	background-color: #FFFFFF;
 	color: #000;
 }

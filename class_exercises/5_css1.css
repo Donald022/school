@@ -1,0 +1,77 @@
+/* CSS Examples - Assignment styling */
+
+/* Background color */
+body {
+	background-color: #e8e4e0;
+	font-family: Georgia, "Times New Roman", serif;
+}
+
+/* Header sizes and alignment */
+h1 {
+	font-size: 2em;
+	text-align: center;
+}
+
+h2 {
+	font-size: 1.5em;
+}
+
+h3 {
+	font-size: 1.17em;
+}
+
+/* 2nd paragraph: width, margin, padding, border, line-height */
+#paragraph2 {
+	width: 28em;
+	margin: 1em 0;
+	padding: 1em;
+	border: 1px solid #666;
+	line-height: 1.6;
+}
+
+/* 4th and 5th paragraphs - blue text */
+.blue {
+	color: #00008b;
+}
+
+/* Link colors - list item links */
+a:link {
+	color: #0066cc;
+}
+
+a:visited {
+	color: #660099;
+}
+
+/* W3schools link - different color than list item links */
+a[href*="w3schools.com"]:link {
+	color: #228b22;
+}
+
+a[href*="w3schools.com"]:visited {
+	color: #006400;
+}
+
+/* List items use two digits (01, 02, 03...) */
+ol {
+	list-style-type: decimal-leading-zero;
+}
+
+/* Table: header and cells different backgrounds, border on all cells, overlapping borders */
+table {
+	border-collapse: collapse;
+}
+
+th, td {
+	border: 1px solid #333;
+	padding: 0.4em 0.6em;
+}
+
+th {
+	background-color: #4a4a4a;
+	color: #fff;
+}
+
+td {
+	background-color: #f5f5f5;
+}

@@ -1,0 +1,159 @@
+/* CSS Positioning Assignment - Jump menu, fixed header, grid articles, thank you block */
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	font-family: Georgia, "Times New Roman", serif;
+}
+
+/* 1. Jump menu: left, spans entire height of page */
+#jumpMenu {
+	position: fixed;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	width: 15%;
+	min-width: 120px;
+	background-color: #DAA520;
+	padding: 1.5rem 1rem;
+	overflow-y: auto;
+}
+
+#jumpMenu h2 {
+	margin: 0 0 1rem 0;
+	font-size: 1rem;
+	text-align: center;
+	color: #000;
+}
+
+#jumpMenu a {
+	display: block;
+	color: #0000FF;
+	text-decoration: underline;
+	padding: 0.35rem 0;
+	font-size: 0.95rem;
+}
+
+/* Main content area: starts to the right of jump menu */
+main {
+	margin-left: 15%;
+	min-height: 100vh;
+	background-color: #fff;
+}
+
+/* 2. Header: always on top, unaffected by scrolling */
+/* 3. Header centered in the area to the right of jump menu (does not include jump menu width) */
+main > header {
+	position: fixed;
+	top: 0;
+	left: 15%;
+	right: 0;
+	background-color: #FF0000;
+	padding: 0.75rem 1rem 1rem;
+	z-index: 10;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 0.5rem;
+}
+
+main > header p {
+	margin: 0;
+	color: #fff;
+	font-size: 1.25rem;
+	font-weight: bold;
+}
+
+main > header nav {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 0;
+}
+
+main > header nav button {
+	background-color: #0000FF;
+	color: #fff;
+	border: 1px solid #000;
+	padding: 0.4rem 0.75rem;
+	font-size: 0.9rem;
+	cursor: pointer;
+	margin: 0 -1px;
+}
+
+/* Space for fixed header so content is not hidden underneath */
+main > h1 {
+	margin: 0;
+	padding: 7rem 1rem 1rem;
+	text-align: center;
+	font-size: 1.75rem;
+	color: #000;
+}
+
+/* 5. & 6. Journal articles: neat grid, reorganized on resize; 7. Each article fixed width ~300px */
+#container {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1.5rem;
+	justify-content: center;
+	padding: 0 1rem 2rem;
+}
+
+/* Scroll margin so jump-to-article links aren't hidden under the fixed header */
+#container article {
+	scroll-margin-top: 8rem;
+	width: 300px;
+	min-width: 280px;
+	flex-shrink: 0;
+	padding: 1rem;
+	background-color: #fff;
+}
+
+#container article h2 {
+	margin: 0 0 0.5rem 0;
+	font-size: 1.1rem;
+	color: #000;
+}
+
+#container article p {
+	margin: 0 0 0.5rem 0;
+	line-height: 1.5;
+	color: #000;
+	font-size: 0.95rem;
+}
+
+#container article a {
+	color: #0000FF;
+	text-decoration: underline;
+}
+
+/* 4. Thank you block: always bottom-right of page */
+#thanks {
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	margin: 0;
+	padding: 1rem 1.5rem;
+	background-color: #ADD8E6;
+	color: #000;
+	font-weight: bold;
+	font-size: 1rem;
+	text-align: center;
+	z-index: 10;
+}
+
+/* Footer in main flow */
+main footer {
+	padding: 1rem 1rem 4rem;
+	border-top: 1px solid #ccc;
+}
+
+main footer p,
+main footer address {
+	margin: 0.25rem 0;
+	font-size: 0.9rem;
+}

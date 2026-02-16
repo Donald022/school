@@ -1,0 +1,376 @@
+/* ===========================
+   CSS Reset & Base Styles
+   =========================== */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f0f2f5;
+}
+
+/* ===========================
+   Mobile-First Layout (412px)
+   =========================== */
+
+/* ---------- Header ---------- */
+header {
+    background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+    color: #fff;
+    padding: 1.5rem 1rem;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 0.5rem;
+}
+
+header nav ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    align-items: center;
+}
+
+header nav a {
+    color: #e0e0e0;
+    text-decoration: none;
+    font-size: 0.95rem;
+    padding: 0.35rem 0.8rem;
+    border-radius: 4px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+header nav a:hover,
+header nav a:focus {
+    background-color: rgba(255, 255, 255, 0.15);
+    color: #fff;
+}
+
+/* ---------- Main Content ---------- */
+main {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+/* ---------- Sections ---------- */
+section {
+    background: #fff;
+    border-radius: 8px;
+    padding: 1.25rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+section h2 {
+    font-size: 1.25rem;
+    color: #0f3460;
+    border-bottom: 2px solid #0f3460;
+    padding-bottom: 0.4rem;
+    margin-bottom: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* ---------- Contact Section ---------- */
+#contact address {
+    font-style: normal;
+}
+
+#contact p {
+    margin-bottom: 0.3rem;
+}
+
+#contact a {
+    color: #0f3460;
+    text-decoration: none;
+    border-bottom: 1px dashed #0f3460;
+    transition: color 0.3s, border-color 0.3s;
+}
+
+#contact a:hover {
+    color: #e94560;
+    border-color: #e94560;
+}
+
+/* ---------- Objective Section ---------- */
+#objective p {
+    text-align: justify;
+    color: #555;
+}
+
+/* ---------- Education Section ---------- */
+#education article {
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #eee;
+}
+
+#education article:last-child {
+    border-bottom: none;
+}
+
+#education h3 {
+    font-size: 1.05rem;
+    color: #1a1a2e;
+}
+
+#education p {
+    margin-top: 0.15rem;
+    color: #555;
+    font-size: 0.95rem;
+}
+
+#education time {
+    color: #777;
+    font-size: 0.9rem;
+}
+
+/* ---------- Experience Section ---------- */
+#experience article {
+    padding: 0.75rem 0;
+    border-left: 3px solid #0f3460;
+    padding-left: 0.75rem;
+    margin-bottom: 0.75rem;
+}
+
+#experience h3 {
+    font-size: 1.05rem;
+    color: #1a1a2e;
+}
+
+#experience p {
+    color: #555;
+    font-size: 0.95rem;
+    margin-top: 0.15rem;
+}
+
+#experience article p:last-child {
+    margin-top: 0.35rem;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+/* ---------- Projects Section ---------- */
+#projects article {
+    padding: 0.75rem;
+    margin-bottom: 0.6rem;
+    background: #f8f9fc;
+    border-radius: 6px;
+    border: 1px solid #e8eaf0;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+#projects article:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+#projects h3 {
+    font-size: 1.05rem;
+}
+
+#projects h3 a {
+    color: #0f3460;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+#projects h3 a:hover {
+    color: #e94560;
+}
+
+#projects p {
+    color: #666;
+    font-size: 0.9rem;
+    margin-top: 0.25rem;
+}
+
+/* ---------- Skills Section ---------- */
+#skills .skills-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+}
+
+#skills article {
+    background: #f8f9fc;
+    border-radius: 6px;
+    padding: 0.75rem;
+    border: 1px solid #e8eaf0;
+}
+
+#skills article h3 {
+    font-size: 0.95rem;
+    color: #0f3460;
+    margin-bottom: 0.4rem;
+    padding-bottom: 0.25rem;
+    border-bottom: 1px solid #dde;
+}
+
+#skills ul {
+    list-style: none;
+    padding: 0;
+}
+
+#skills li {
+    position: relative;
+    padding-left: 1rem;
+    margin-bottom: 0.25rem;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+#skills li::before {
+    content: "\2022";
+    color: #0f3460;
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+}
+
+/* ---------- Footer ---------- */
+footer {
+    background: #1a1a2e;
+    color: #aaa;
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.85rem;
+}
+
+/* ===========================
+   Desktop / Laptop Layout
+   (min-width: 768px)
+   =========================== */
+@media (min-width: 768px) {
+
+    /* Header becomes horizontal bar */
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.5rem 3rem;
+        text-align: left;
+    }
+
+    header h1 {
+        font-size: 2rem;
+        margin-bottom: 0;
+    }
+
+    header nav ul {
+        flex-direction: row;
+        gap: 0.5rem;
+    }
+
+    header nav a {
+        font-size: 1rem;
+        padding: 0.4rem 1rem;
+    }
+
+    /* Main content wider padding */
+    main {
+        padding: 2rem 2rem;
+    }
+
+    /* Sections get larger padding */
+    section {
+        padding: 1.75rem 2rem;
+        margin-bottom: 1.5rem;
+        border-radius: 10px;
+    }
+
+    section h2 {
+        font-size: 1.4rem;
+    }
+
+    /* Education side-by-side */
+    #education .edu-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+    }
+
+    #education article {
+        border-bottom: none;
+        padding: 1rem;
+        background: #f8f9fc;
+        border-radius: 6px;
+        border: 1px solid #e8eaf0;
+    }
+
+    /* Experience two-column on larger screens */
+    #experience .exp-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+    }
+
+    /* Projects two-column */
+    #projects .projects-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+    }
+
+    /* Skills 2x2 grid on desktop */
+    #skills .skills-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    footer {
+        font-size: 0.9rem;
+        padding: 1.25rem;
+    }
+}
+
+/* ===========================
+   Large Desktop (min-width: 1200px)
+   Fine-tuning for 1920px
+   =========================== */
+@media (min-width: 1200px) {
+
+    header {
+        padding: 2rem 5rem;
+    }
+
+    header h1 {
+        font-size: 2.4rem;
+    }
+
+    header nav a {
+        font-size: 1.05rem;
+        padding: 0.5rem 1.25rem;
+    }
+
+    main {
+        max-width: 1100px;
+        padding: 2.5rem 2rem;
+    }
+
+    section {
+        padding: 2rem 2.5rem;
+    }
+
+    section h2 {
+        font-size: 1.5rem;
+    }
+
+    #experience .exp-grid {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}

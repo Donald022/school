@@ -1,7 +1,7 @@
 // ===========================
 // 1pt: Simple Functions
 // ===========================
-
+// ai was used to help with the first draft//
 // Increment the counter
 function tickUp() {
     let counterElement = document.getElementById("counter");

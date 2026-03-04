@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokemon Team Builder</title>
+    <style>
+        * { box-sizing: border-box; }
+        body { font-family: system-ui, sans-serif; max-width: 800px; margin: 0 auto; padding: 1rem; }
+        h1 { margin-top: 0; }
+        .search-row { display: flex; gap: 0.5rem; margin-bottom: 1rem; align-items: center; }
+        .search-row input { flex: 1; padding: 0.5rem; font-size: 1rem; }
+        .search-row button { padding: 0.5rem 1rem; font-size: 1rem; cursor: pointer; }
+        .error { color: #c00; margin: 0.5rem 0; }
+        .pokemon-display { border: 1px solid #ccc; padding: 1rem; margin: 1rem 0; border-radius: 8px; }
+        .pokemon-display h2 { margin-top: 0; text-transform: capitalize; }
+        .pokemon-display img { display: block; margin: 0.5rem 0; }
+        .cry-row { display: flex; align-items: center; gap: 0.5rem; margin: 0.5rem 0; }
+        .moves-row { margin: 1rem 0; }
+        .moves-row label { display: block; margin-bottom: 0.25rem; }
+        .moves-row select { width: 100%; max-width: 280px; padding: 0.35rem; margin-bottom: 0.5rem; }
+        .add-team-btn { padding: 0.5rem 1rem; font-size: 1rem; cursor: pointer; margin-top: 0.5rem; }
+        .team-section { margin-top: 2rem; }
+        .team-section h2 { border-bottom: 2px solid #333; padding-bottom: 0.25rem; }
+        .team-member { border: 1px solid #ddd; padding: 1rem; margin: 0.75rem 0; border-radius: 8px; display: flex; flex-wrap: wrap; gap: 1rem; align-items: flex-start; }
+        .team-member img { flex-shrink: 0; }
+        .team-member .info { flex: 1; min-width: 200px; }
+        .team-member .info h3 { margin: 0 0 0.5rem 0; text-transform: capitalize; }
+        .team-member .moves-list { margin: 0; padding-left: 1.25rem; }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+    <h1>Pokemon Team Builder</h1>
+
+    <div class="search-row">
+        <label for="pokemon-input">Pokemon (ID or name):</label>
+        <input type="text" id="pokemon-input" placeholder="e.g. 1, 25, bulbasaur, pikachu" />
+        <button type="button" id="submit-btn">Submit</button>
+    </div>
+
+    <p id="error-msg" class="error hidden"></p>
+
+    <div id="pokemon-display" class="pokemon-display hidden">
+        <h2 id="pokemon-name"></h2>
+        <img id="pokemon-img" src="" alt="" />
+        <div class="cry-row">
+            <label for="cry-audio">Cry:</label>
+            <audio id="cry-audio" controls></audio>
+        </div>
+        <div class="moves-row">
+            <label>Move 1:</label>
+            <select id="move1"></select>
+            <label>Move 2:</label>
+            <select id="move2"></select>
+            <label>Move 3:</label>
+            <select id="move3"></select>
+            <label>Move 4:</label>
+            <select id="move4"></select>
+        </div>
+        <button type="button" id="add-to-team-btn" class="add-team-btn">Add to Team</button>
+    </div>
+
+    <section class="team-section" id="team-section">
+        <h2>Your Team</h2>
+        <div id="team-list"></div>
+    </section>
+
+    <script>
+        (function () {
+            const POKE_API_BASE = 'https://pokeapi.co/api/v2/pokemon/';
+            const cache = Object.create(null);
+
+            function getCached(url) {
+                return cache[url];
+            }
+            function setCached(url, data) {
+                cache[url] = data;
+            }
+
+            const inputEl = document.getElementById('pokemon-input');
+            const submitBtn = document.getElementById('submit-btn');
+            const errorEl = document.getElementById('error-msg');
+            const displayEl = document.getElementById('pokemon-display');
+            const nameEl = document.getElementById('pokemon-name');
+            const imgEl = document.getElementById('pokemon-img');
+            const audioEl = document.getElementById('cry-audio');
+            const move1El = document.getElementById('move1');
+            const move2El = document.getElementById('move2');
+            const move3El = document.getElementById('move3');
+            const move4El = document.getElementById('move4');
+            const addToTeamBtn = document.getElementById('add-to-team-btn');
+            const teamListEl = document.getElementById('team-list');
+
+            function showError(msg) {
+                errorEl.textContent = msg;
+                errorEl.classList.remove('hidden');
+            }
+            function clearError() {
+                errorEl.textContent = '';
+                errorEl.classList.add('hidden');
+            }
+
+            function populateMovesSelect(selectEl, moveNames) {
+                selectEl.innerHTML = '';
+                const empty = document.createElement('option');
+                empty.value = '';
+                empty.textContent = '-- Select move --';
+                selectEl.appendChild(empty);
+                moveNames.forEach(function (name) {
+                    const opt = document.createElement('option');
+                    opt.value = name;
+                    opt.textContent = name.replace(/-/g, ' ');
+                    selectEl.appendChild(opt);
+                });
+            }
+
+            function loadPokemon(data) {
+                clearError();
+                displayEl.classList.remove('hidden');
+
+                const name = data.name;
+                nameEl.textContent = name;
+
+                const imgUrl = data.sprites && data.sprites.front_default;
+                if (imgUrl) {
+                    imgEl.src = imgUrl;
+                    imgEl.alt = name;
+                    imgEl.style.display = 'block';
+                } else {
+                    imgEl.style.display = 'none';
+                }
+
+                const cryUrl = data.cries && (data.cries.latest || data.cries.legacy);
+                if (cryUrl) {
+                    audioEl.src = cryUrl;
+                    audioEl.style.display = 'inline';
+                } else {
+                    audioEl.style.display = 'none';
+                }
+
+                const moveNames = (data.moves || []).map(function (m) { return m.move.name; });
+                populateMovesSelect(move1El, moveNames);
+                populateMovesSelect(move2El, moveNames);
+                populateMovesSelect(move3El, moveNames);
+                populateMovesSelect(move4El, moveNames);
+
+                displayEl.dataset.currentId = String(data.id);
+                displayEl.dataset.currentName = name;
+            }
+
+            function doFetch() {
+                const query = (inputEl.value || '').trim().toLowerCase();
+                if (!query) {
+                    showError('Please enter a Pokemon ID or name.');
+                    return;
+                }
+                const url = POKE_API_BASE + encodeURIComponent(query);
+                const cached = getCached(url);
+                if (cached) {
+                    loadPokemon(cached);
+                    return;
+                }
+                fetch(url)
+                    .then(function (res) {
+                        if (!res.ok) throw new Error('Pokemon not found. Try an ID (1–151) or name.');
+                        return res.json();
+                    })
+                    .then(function (data) {
+                        setCached(url, data);
+                        loadPokemon(data);
+                    })
+                    .catch(function (err) {
+                        showError(err.message || 'Failed to load Pokemon.');
+                    });
+            }
+
+            submitBtn.addEventListener('click', doFetch);
+            inputEl.addEventListener('keydown', function (e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    doFetch();
+                }
+            });
+
+            function getSelectedMoves() {
+                return [
+                    move1El.value,
+                    move2El.value,
+                    move3El.value,
+                    move4El.value
+                ].filter(Boolean);
+            }
+
+            addToTeamBtn.addEventListener('click', function () {
+                const id = displayEl.dataset.currentId;
+                const name = displayEl.dataset.currentName;
+                const imgSrc = imgEl.src;
+                if (!name) return;
+                const moves = getSelectedMoves();
+                const member = {
+                    id: id,
+                    name: name,
+                    imgSrc: imgSrc,
+                    moves: moves
+                };
+                const card = document.createElement('div');
+                card.className = 'team-member';
+                card.innerHTML =
+                    '<img src="' + imgSrc + '" alt="' + name + '" width="96" height="96">' +
+                    '<div class="info">' +
+                    '<h3>' + name + '</h3>' +
+                    '<p><strong>Moves:</strong></p>' +
+                    '<ul class="moves-list">' +
+                    moves.map(function (m) { return '<li>' + m.replace(/-/g, ' ') + '</li>'; }).join('') +
+                    '</ul>' +
+                    '</div>';
+                teamListEl.appendChild(card);
+            });
+        })();
+    </script>
+</body>
+</html>

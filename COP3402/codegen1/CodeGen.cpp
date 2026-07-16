@@ -92,6 +92,33 @@ public:
   }
 
   virtual void enterOperation(SimpleIRParser::OperationContext * ctx) override {
+    string operand1 = operand_to_string(ctx->operand1);
+    string operand2 = operand_to_string(ctx->operand2);
+    cout << "\tmov\t" << operand1 << ", %rax" << endl;
+    cout << "\tmov\t" << operand2 << ", %rbx" << endl;
+    switch (ctx->operatorKind->getType()) {
+      case SimpleIRParser::PLUS:
+        cout << "\tadd\t%rbx, %rax" << endl;
+        break;
+      case SimpleIRParser::MINUS:
+        cout << "\tsub\t%rbx, %rax" << endl;
+        break;
+      case SimpleIRParser::STAR:
+        cout << "\timul\t%rbx, %rax" << endl;
+        break;
+      case SimpleIRParser::SLASH:
+        cout << "\tcqo" << endl;
+        cout << "\tidiv\t%rbx" << endl;
+        break;
+      case SimpleIRParser::PERCENT:
+        cout << "\tcqo" << endl;
+        cout << "\tidiv\t%rbx" << endl;
+        cout << "\tmov\t%rdx, %rax" << endl;
+        break;
+      default:
+        assert(false);
+    }
+    cout << "\tmov\t%rax, " << symtab[ctx->variable->getText()] << "(%rbp)" << endl;
   }
 
   virtual void enterCall(SimpleIRParser::CallContext * ctx) override {

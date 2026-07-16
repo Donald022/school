@@ -129,12 +129,41 @@ public:
   }
 
   virtual void enterLabel(SimpleIRParser::LabelContext * ctx) override {
+    cout << ctx->labelName->getText() << ":" << endl;
   }
 
   virtual void enterGotoStatement(SimpleIRParser::GotoStatementContext * ctx) override {
+    cout << "\tjmp\t" << ctx->labelName->getText() << endl;
   }
 
   virtual void enterIfGoto(SimpleIRParser::IfGotoContext * ctx) override {
+    string operand1 = operand_to_string(ctx->operand1);
+    string operand2 = operand_to_string(ctx->operand2);
+    cout << "\tmov\t" << operand1 << ", %rax" << endl;
+    cout << "\tmov\t" << operand2 << ", %rbx" << endl;
+    cout << "\tcmp\t%rbx, %rax" << endl;
+    switch (ctx->operatorKind->getType()) {
+      case SimpleIRParser::EQ:
+        cout << "\tje\t" << ctx->labelName->getText() << endl;
+        break;
+      case SimpleIRParser::NEQ:
+        cout << "\tjne\t" << ctx->labelName->getText() << endl;
+        break;
+      case SimpleIRParser::LT:
+        cout << "\tjl\t" << ctx->labelName->getText() << endl;
+        break;
+      case SimpleIRParser::LTE:
+        cout << "\tjle\t" << ctx->labelName->getText() << endl;
+        break;
+      case SimpleIRParser::GT:
+        cout << "\tjg\t" << ctx->labelName->getText() << endl;
+        break;
+      case SimpleIRParser::GTE:
+        cout << "\tjge\t" << ctx->labelName->getText() << endl;
+        break;
+      default:
+        assert(false);
+    }
   }
 
   virtual void enterDereference(SimpleIRParser::DereferenceContext * ctx) override {

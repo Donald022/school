@@ -1,0 +1,6 @@
+*~
+*.swp
+CodeGen
+*.o
+*.s
+compiler-project.tar

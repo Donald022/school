@@ -139,19 +139,14 @@ public:
   virtual void enterCall(SimpleIRParser::CallContext * ctx) override {
     auto actuals = ctx->actuals;
     int numstack = actuals.size() > 6 ? actuals.size() - 6 : 0;
-    // pass stack-allocated arguments in reverse order
     for (int i = actuals.size() - 1; i >= 6; i--) {
       cout << "\tpush\t" << symtab[actuals[i]->getText()] << "(%rbp)" << endl;
     }
-    // pass the first six parameters via the pre-defined set of registers
     for (int i = (actuals.size() < 6 ? actuals.size() : 6) - 1; i >= 0; i--) {
       cout << "\tmov\t" << symtab[actuals[i]->getText()] << "(%rbp), " << registers[i] << endl;
     }
-    // make the call
     cout << "\tcall\t" << ctx->functionName->getText() << endl;
-    // restore the stack pointer
     cout << "\tadd\t$" << (numstack * bytewidth) << ", %rsp" << endl;
-    // save the return value
     cout << "\tmov\t%rax, " << symtab[ctx->variable->getText()] << "(%rbp)" << endl;
   }
 
